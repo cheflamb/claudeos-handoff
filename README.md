@@ -9,7 +9,7 @@ Do this once in Claude Code. It's all point-and-click:
 1. Type **`/plugin`** and press Enter (opens the plugin manager).
 2. Choose **Add marketplace**, then paste this and confirm:
    ```
-   cheflamb/clm-handoff
+   cheflamb/claudeos-handoff
    ```
 3. Find **claudeos-handoff** in the list, choose **Install**, pick **"Install for you"** - then **restart Claude Code**.
 
@@ -17,10 +17,10 @@ Do this once in Claude Code. It's all point-and-click:
 
 > Prefer the command line? Run these one at a time instead of steps 2-3:
 > ```
-> /plugin marketplace add cheflamb/clm-handoff
+> /plugin marketplace add cheflamb/claudeos-handoff
 > ```
 > ```
-> /plugin install claudeos-handoff@clm-handoff
+> /plugin install claudeos-handoff@claudeos-handoff
 > ```
 
 ---
@@ -41,7 +41,7 @@ The point: the next (cold) session reads `HANDOFF.md` and is productive immediat
 
 When we push improvements here, refresh with:
 ```
-/plugin marketplace update clm-handoff
+/plugin marketplace update claudeos-handoff
 ```
 
 ## Optional config
