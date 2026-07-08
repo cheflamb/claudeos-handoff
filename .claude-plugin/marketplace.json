@@ -1,0 +1,19 @@
+{
+  "name": "clm-handoff",
+  "owner": {
+    "name": "Chef Life Media",
+    "email": "adam@cheflifemedia.com"
+  },
+  "metadata": {
+    "description": "Chef Life Media ClaudeOS shared skills.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "handoff",
+      "source": "./plugins/handoff",
+      "description": "End-of-session handoff for cold-start continuity: reconcile docs, regenerate a per-project HANDOFF.md (status + cross-system wiring map + open threads + changelog + pointers), sync memory if configured, and PROPOSE (never auto-run) data/state cleanup.",
+      "version": "1.0.0"
+    }
+  ]
+}
