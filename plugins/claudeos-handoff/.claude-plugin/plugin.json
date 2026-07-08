@@ -1,0 +1,9 @@
+{
+  "name": "claudeos-handoff",
+  "description": "ClaudeOS Handoff - reconciles a project's docs against what shipped, regenerates a per-project HANDOFF.md, optionally maintains a workspace index, syncs memory if configured, and proposes data/state cleanup (confirm-gated, never auto-deletes). Invoked as /handoff.",
+  "version": "1.1.0",
+  "author": {
+    "name": "Chef Life Media",
+    "email": "adam@cheflifemedia.com"
+  }
+}

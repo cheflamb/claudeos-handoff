@@ -1,6 +1,6 @@
 # clm-handoff
 
-A Claude Code plugin marketplace for Chef Life Media's shared ClaudeOS skills. Currently ships one skill: **`/handoff`**.
+A Claude Code plugin marketplace for Chef Life Media's shared ClaudeOS skills. Currently ships one plugin: **ClaudeOS Handoff** (`claudeos-handoff`), providing the **`/handoff`** skill.
 
 ## What `/handoff` does
 
@@ -16,14 +16,18 @@ The point: the next (cold) session reads `HANDOFF.md` and is productive immediat
 
 ## Install (each person, once)
 
-In Claude Code:
+Easiest is the interactive plugin panel: run `/plugin`, choose **Add marketplace**, paste `cheflamb/clm-handoff`, then find **claudeos-handoff** and **Install** it ("install for you").
+
+Or by command, one at a time:
 
 ```
 /plugin marketplace add cheflamb/clm-handoff
-/plugin install handoff@clm-handoff
+```
+```
+/plugin install claudeos-handoff@clm-handoff
 ```
 
-Then `/handoff` is available in every session, in any folder. Updates arrive when you re-run the marketplace update (or reinstall) after we push changes here.
+Either way, `/handoff` is then available in every session, in any folder. When we push updates here, refresh with `/plugin marketplace update clm-handoff`.
 
 ## Optional config
 

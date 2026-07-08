@@ -1,9 +1,0 @@
-{
-  "name": "handoff",
-  "description": "End-of-session handoff for cold-start continuity: reconciles a project's docs against what shipped, regenerates a per-project HANDOFF.md, optionally maintains a workspace index, syncs memory if configured, and proposes data/state cleanup (confirm-gated, never auto-deletes).",
-  "version": "1.0.0",
-  "author": {
-    "name": "Chef Life Media",
-    "email": "adam@cheflifemedia.com"
-  }
-}
