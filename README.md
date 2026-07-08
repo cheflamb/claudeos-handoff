@@ -1,6 +1,29 @@
-# clm-handoff
+# ClaudeOS Handoff
 
-A Claude Code plugin marketplace for Chef Life Media's shared ClaudeOS skills. Currently ships one plugin: **ClaudeOS Handoff** (`claudeos-handoff`), providing the **`/handoff`** skill.
+A Claude Code skill that leaves a clean end-of-session handoff so the next (cold) session picks up instantly. Distributed to the Chef Life Media / TWA team via this marketplace.
+
+## Quickstart (3 steps, ~1 minute, once per person)
+
+Do this once in Claude Code. It's all point-and-click:
+
+1. Type **`/plugin`** and press Enter (opens the plugin manager).
+2. Choose **Add marketplace**, then paste this and confirm:
+   ```
+   cheflamb/clm-handoff
+   ```
+3. Find **claudeos-handoff** in the list, choose **Install**, pick **"Install for you"** - then **restart Claude Code**.
+
+**Done.** In any project, type **`/handoff`** at the end of a work session.
+
+> Prefer the command line? Run these one at a time instead of steps 2-3:
+> ```
+> /plugin marketplace add cheflamb/clm-handoff
+> ```
+> ```
+> /plugin install claudeos-handoff@clm-handoff
+> ```
+
+---
 
 ## What `/handoff` does
 
@@ -14,24 +37,16 @@ Run it at the end of a work session (say "handoff" / "wrap up" / "sign off"). It
 
 The point: the next (cold) session reads `HANDOFF.md` and is productive immediately, without rediscovering how everything is wired.
 
-## Install (each person, once)
+## Updating
 
-Easiest is the interactive plugin panel: run `/plugin`, choose **Add marketplace**, paste `cheflamb/clm-handoff`, then find **claudeos-handoff** and **Install** it ("install for you").
-
-Or by command, one at a time:
-
+When we push improvements here, refresh with:
 ```
-/plugin marketplace add cheflamb/clm-handoff
+/plugin marketplace update clm-handoff
 ```
-```
-/plugin install claudeos-handoff@clm-handoff
-```
-
-Either way, `/handoff` is then available in every session, in any folder. When we push updates here, refresh with `/plugin marketplace update clm-handoff`.
 
 ## Optional config
 
-Create `.claude/handoff.json` in a project (or a parent folder) to turn on the workspace index:
+Create `.claude/handoff.json` in a project (or a parent folder) to turn on the cross-project workspace index:
 
 ```json
 {
@@ -41,7 +56,7 @@ Create `.claude/handoff.json` in a project (or a parent folder) to turn on the w
 }
 ```
 
-All fields are optional. With no config, `/handoff` still writes the per-project `HANDOFF.md` (fully portable); it just skips the cross-project index.
+All fields are optional. With no config, `/handoff` still writes the per-project `HANDOFF.md` (fully portable); it just skips the workspace index.
 
 ## Tip
 
