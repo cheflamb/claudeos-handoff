@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "Chef Life Media ClaudeOS shared skills.",
-    "version": "1.1.0"
+    "version": "1.2.0"
   },
   "plugins": [
     {
       "name": "claudeos-handoff",
       "source": "./plugins/claudeos-handoff",
-      "description": "ClaudeOS Handoff - end-of-session handoff for cold-start continuity: reconcile docs, regenerate a per-project HANDOFF.md (status + cross-system wiring map + open threads + changelog + pointers), sync memory if configured, and PROPOSE (never auto-run) data/state cleanup. Invoked as /handoff.",
-      "version": "1.1.0"
+      "description": "ClaudeOS Handoff - end-of-session handoff for cold-start continuity. Auto-surfaces the nearest HANDOFF.md into cold/resumed sessions and backs up the transcript before compaction (Claude Code + Cowork), and regenerates a per-project HANDOFF.md via /handoff: reconcile docs, wiring map, memory sync, and PROPOSE-only cleanup.",
+      "version": "1.2.0"
     }
   ]
 }

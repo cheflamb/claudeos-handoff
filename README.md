@@ -1,6 +1,6 @@
 # ClaudeOS Handoff
 
-A Claude Code skill that leaves a clean end-of-session handoff so the next (cold) session picks up instantly. Distributed to the Chef Life Media / TWA team via this marketplace.
+A Claude Code skill that leaves a clean end-of-session handoff so the next (cold) session picks up instantly. Open source and available to anyone using Claude Code or Cowork — install it from the marketplace (see below).
 
 ## Quickstart (3 steps, ~1 minute, once per person)
 
@@ -39,7 +39,7 @@ The point: the next (cold) session reads `HANDOFF.md` and is productive immediat
 
 ## Updating
 
-When we push improvements here, refresh with:
+Auto-update is on by default, so new versions arrive on their own. To refresh manually:
 ```
 /plugin marketplace update claudeos-handoff
 ```
@@ -57,6 +57,21 @@ Create `.claude/handoff.json` in a project (or a parent folder) to turn on the c
 ```
 
 All fields are optional. With no config, `/handoff` still writes the per-project `HANDOFF.md` (fully portable); it just skips the workspace index.
+
+## Session hooks (v1.2.0+)
+
+Starting in v1.2.0, ClaudeOS Handoff closes the loop automatically: it writes the handoff on the way out and reads it back on the way in. The hooks activate after you install (or update to) v1.2.0 and restart Claude Code or Cowork — no configuration needed.
+
+> Install and update instructions are in the Quickstart and Updating sections above; the hooks ship with the plugin, so there is nothing extra to enable.
+
+### What the hooks do
+
+- **SessionStart** — when a session starts, resumes, or restarts after compaction, the plugin finds the nearest `HANDOFF.md` (walking up from the working directory) and injects it as cold-start context. The new session opens already knowing where the last one left off — no manual "read HANDOFF.md first" step required.
+- **PreCompact** — before the context window compacts, the plugin snapshots the session transcript to `.claude/backups/` (keeping the most recent 10), so detail is not lost to summarization. Regenerating `HANDOFF.md` remains a `/handoff` action; the backup is a safety net, not a replacement.
+
+### Where hooks run
+
+Hooks run in **Claude Code and Cowork only** — they do not fire in plain web or desktop chat. In chat, the skill still works and `/handoff` runs on demand, but the automatic cold-start injection will not trigger. This is expected behavior, not a bug.
 
 ## Tip
 

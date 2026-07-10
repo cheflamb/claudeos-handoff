@@ -1,9 +1,12 @@
 {
   "name": "claudeos-handoff",
-  "description": "ClaudeOS Handoff - reconciles a project's docs against what shipped, regenerates a per-project HANDOFF.md, optionally maintains a workspace index, syncs memory if configured, and proposes data/state cleanup (confirm-gated, never auto-deletes). Invoked as /handoff.",
-  "version": "1.1.0",
+  "description": "ClaudeOS Handoff - end-of-session handoff for cold-start continuity. Auto-surfaces the nearest HANDOFF.md into cold/resumed sessions and backs up the transcript before compaction (Claude Code + Cowork), and regenerates a per-project HANDOFF.md via /handoff: reconciles docs, writes a cross-system wiring map, syncs memory if configured, and PROPOSES (never auto-runs) data/state cleanup.",
+  "version": "1.2.0",
   "author": {
     "name": "Chef Life Media",
     "email": "adam@cheflifemedia.com"
-  }
+  },
+  "repository": "https://github.com/cheflamb/claudeos-handoff",
+  "license": "MIT",
+  "keywords": ["handoff", "session", "continuity", "context", "workspace"]
 }

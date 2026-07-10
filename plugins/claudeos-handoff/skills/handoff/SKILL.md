@@ -1,6 +1,6 @@
 ---
 name: handoff
-description: Use at the end of a work session to leave a clean, self-contained handoff for the next (cold) session. Reconciles the current project's docs against what actually shipped, regenerates a per-project HANDOFF.md (status + cross-system wiring map + open threads + changelog + pointers), optionally updates a workspace-wide index, syncs memory if the environment has a memory convention, and PROPOSES (never auto-runs) data/state cleanup. Triggers: "handoff", "hand off", "end of session", "sign off", "wrap up the session", "leave a handoff".
+description: "Use at the end of a work session to leave a clean, self-contained handoff for the next (cold) session. Reconciles the current project's docs against what actually shipped, regenerates a per-project HANDOFF.md (status + cross-system wiring map + open threads + changelog + pointers), optionally updates a workspace-wide index, syncs memory if the environment has a memory convention, and PROPOSES (never auto-runs) data/state cleanup. Triggers: \"handoff\", \"hand off\", \"end of session\", \"sign off\", \"wrap up the session\", \"leave a handoff\"."
 ---
 
 # Handoff (end-of-session signoff)
@@ -22,6 +22,7 @@ Goal: make the next session productive **cold**. The single highest-value output
 3. **Scope to the current project only.** Do not read or mutate another project's data.
 4. **Any index/roll-up is append/update, not overwrite.** Preserve other projects' rows.
 5. **Verify before asserting.** Read the actual state (git status, DB, deploy API) rather than recalling it.
+6. **Never write live secrets into artifacts.** In the wiring map and pointers, record service names, locations, and env-var *names* (e.g. `.env: STRIPE_SECRET_KEY`) — never the value of a key, token, password, or connection string, and never a URL with embedded credentials. HANDOFF.md is git-tracked; assume it will be pushed.
 
 ## Configuration (portable)
 This skill has no machine-specific paths baked in. It reads optional settings from a `handoff.json` in the project's `.claude/` directory (or the nearest ancestor `.claude/`), all fields optional:
@@ -43,13 +44,15 @@ If `workspaceRoot` is unset and the user has not told you their workspace root, 
 - Load `handoff.json` config if present.
 
 ### 2. Fan out subagent lanes (parallel)
-Dispatch one subagent per lane (in a single message so they run concurrently). In a session that already holds full context you MAY gather a lane's facts directly instead of dispatching; in a cold/resumed session, dispatch, because the subagents do the rediscovery. Each lane writes findings to a scratch file and returns a short summary.
+Dispatch one subagent per lane (in a single message so they run concurrently). In a session that already holds full context you MAY gather a lane's facts directly instead of dispatching; in a cold/resumed session, dispatch, because the subagents do the rediscovery. If the runtime has no sub-agent capability (for example, plain chat rather than Claude Code or Cowork), do NOT skip the lanes — run them sequentially in the main context instead of dispatching. Dispatching is an optimization, not a requirement. Each lane writes findings to a scratch file and returns a short summary.
 - **Docs lane** - reconcile the project's instructions + any spec/plan/doc files against what actually shipped this session. Produce proposed doc edits + drafted content for each HANDOFF.md section.
 - **Git/deploy lane** - `git status` + branch/push state for each repo touched; which commit is live on each deploy target; flag leftover placeholders (`REPLACE_WITH_*`, `TODO`, stray fences) in shipped files.
 - **Data-audit lane** - enumerate stale/test data created or left this session (DB test rows, orphaned external records, temp files). Classify each SAFE-TO-DELETE vs KEEP with a reason. Proposes only; never deletes.
 - **Memory lane** (only if `syncMemory` and the environment documents a memory convention in its instructions files) - update that memory store with durable cross-session facts. If no memory convention exists, skip this lane.
 
 ### 3. Write the project HANDOFF.md
+- Read the existing HANDOFF.md first. Preserve any human-authored content outside the five managed sections rather than clobbering it on regenerate.
+
 Regenerate `<project>/HANDOFF.md` with these five sections, in this order (a cold reader wants status and wiring first):
 
 ```markdown
